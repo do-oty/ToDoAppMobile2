@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDoApp.SignUpPage"
+               Padding="0">
+
+    <ScrollView>
+        <Grid>
+    
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="white" Offset="0.0"/>
+                    <GradientStop Color="#BDA7E1" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+
+            <VerticalStackLayout Padding="30,0" Spacing="25">
+                <Image 
+                    Source="app_logo" 
+                    HeightRequest="150" 
+                    Aspect="AspectFit" 
+                    Margin="0,75,0,-50" />
+
+                <VerticalStackLayout Padding="15" Spacing="15">
+                    <Border StrokeThickness="1" Stroke="#5A339E" BackgroundColor="White">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Entry x:Name="FirstNameEntry" Placeholder="First Name" TextColor="#5A339E" BackgroundColor="Transparent"/>
+                    </Border>
+
+                    <Border StrokeThickness="1" Stroke="#5A339E" BackgroundColor="White">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Entry x:Name="LastNameEntry" Placeholder="Last Name" TextColor="#5A339E" BackgroundColor="Transparent"/>
+                    </Border>
+
+                    <Border StrokeThickness="1" Stroke="#5A339E" BackgroundColor="White">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Entry x:Name="EmailEntry" Placeholder="Email Address" TextColor="#5A339E" BackgroundColor="Transparent"/>
+                    </Border>
+
+                    <Border StrokeThickness="1" Stroke="#5A339E" BackgroundColor="White">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" TextColor="#5A339E" BackgroundColor="Transparent" Grid.Column="0"/>
+                            <ImageButton x:Name="PasswordToggleButton" 
+                                         Source="eyebrow.svg"
+                                         BackgroundColor="Transparent"
+                                         WidthRequest="24"
+                                         HeightRequest="24"
+                                         Padding="10"
+                                         Grid.Column="1" />
+                        </Grid>
+                    </Border>
+
+                    <Border StrokeThickness="1" Stroke="#5A339E" BackgroundColor="White">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Entry x:Name="ConfirmPasswordEntry" Placeholder="Confirm Password" IsPassword="True" TextColor="#5A339E" BackgroundColor="Transparent" Grid.Column="0"/>
+                            <ImageButton x:Name="ConfirmPasswordToggleButton"
+                                         Source="eyebrow.svg"
+                                         BackgroundColor="Transparent"
+                                         WidthRequest="24"
+                                         HeightRequest="24"
+                                         Padding="10"
+                                         Grid.Column="1" />
+                        </Grid>
+                    </Border>
+                </VerticalStackLayout>
+
+                <Border StrokeThickness="0" BackgroundColor="#5A339E" Margin="15,-30,15,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Button Text="Sign Up" BackgroundColor="Transparent" TextColor="White" Clicked="OnSignUpClicked"/>
+                </Border>
+
+                <HorizontalStackLayout Margin="70,-10,0,0">
+                    <Label Text="Already have an account? " TextColor="#5A339E"/>
+                    <Label 
+                        Text="Log In"
+                        BackgroundColor="Transparent"
+                        TextColor="#759ed4"
+                        TextDecorations="Underline"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLoginTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Spacing="10" VerticalOptions="Center"  HorizontalOptions="Center" Margin="15,0,15,0">
+                    <BoxView BackgroundColor="#5A339E" HeightRequest="1" WidthRequest="100" VerticalOptions="Center"  HorizontalOptions="Center"/>
+                    <Label Text="Or" TextColor="#5A339E" VerticalOptions="Center"/>
+                    <BoxView BackgroundColor="#5A339E" HeightRequest="1" WidthRequest="100" VerticalOptions="Center"  HorizontalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <Border StrokeThickness="1" BackgroundColor="#FFFFFF" Stroke="#5A339E" Margin="15,-10,15,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Grid Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="google" HeightRequest="24" WidthRequest="24" Grid.Column="0"/>
+                        <Label Text="Sign Up with Google" TextColor="#5A339E" VerticalOptions="Center" Grid.Column="1" HorizontalOptions="Center"/>
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

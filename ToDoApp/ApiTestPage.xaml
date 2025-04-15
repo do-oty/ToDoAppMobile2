@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDoApp.ApiTestPage"
+             Title="API Test">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+            <Label Text="API Test Page" FontSize="24" FontAttributes="Bold"/>
+            
+            <!-- Test Sign Up -->
+            <Label Text="Test Sign Up" FontSize="20" FontAttributes="Bold"/>
+            <Entry x:Name="SignUpFirstName" Placeholder="First Name"/>
+            <Entry x:Name="SignUpLastName" Placeholder="Last Name"/>
+            <Entry x:Name="SignUpEmail" Placeholder="Email"/>
+            <Entry x:Name="SignUpPassword" Placeholder="Password" IsPassword="True"/>
+            <Entry x:Name="SignUpConfirmPassword" Placeholder="Confirm Password" IsPassword="True"/>
+            <Button Text="Test Sign Up" Clicked="OnTestSignUpClicked"/>
+            
+            <!-- Test Sign In -->
+            <Label Text="Test Sign In" FontSize="20" FontAttributes="Bold"/>
+            <Entry x:Name="SignInEmail" Placeholder="Email"/>
+            <Entry x:Name="SignInPassword" Placeholder="Password" IsPassword="True"/>
+            <Button Text="Test Sign In" Clicked="OnTestSignInClicked"/>
+            
+            <!-- Response Display -->
+            <Frame BorderColor="Gray" Padding="10">
+                <VerticalStackLayout>
+                    <Label Text="API Response:" FontAttributes="Bold"/>
+                    <Label x:Name="ResponseLabel" Text="No response yet"/>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage> 

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDoApp.ProfilePage"
+            >
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="white" Offset="0.0"/>
+                <GradientStop Color="#BDA7E1" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <ScrollView>
+            <VerticalStackLayout Spacing="20" Padding="20">
+                <!-- Profile Header -->
+                <Frame BackgroundColor="White" 
+                       BorderColor="#5A339E" 
+                       CornerRadius="15" 
+                       Padding="20"
+                       Margin="0,20,0,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        
+                        <Image Source="profile_placeholder.png"
+                               HeightRequest="100"
+                               WidthRequest="100"
+                               Aspect="AspectFill"
+                               HorizontalOptions="Center"
+                               Margin="0,0,0,10"/>
+                        
+                        <VerticalStackLayout Grid.Row="1" Spacing="5">
+                            <Label Text="John Doe"
+                                   FontSize="24"
+                                   FontAttributes="Bold"
+                                   HorizontalOptions="Center"/>
+                            <Label Text="john.doe@example.com"
+                                   TextColor="Gray"
+                                   HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+
+                <!-- Settings Section -->
+                <Frame BackgroundColor="White" 
+                       BorderColor="#5A339E" 
+                       CornerRadius="15" 
+                       Padding="20">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Settings"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               TextColor="#5A339E"/>
+
+                        <!-- Account Settings -->
+                        <Border StrokeThickness="1" 
+                                Stroke="#5A339E" 
+                                Padding="15" 
+                                BackgroundColor="Transparent">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="account.png" 
+                                       HeightRequest="24" 
+                                       WidthRequest="24"/>
+                                <Label Text="Account Settings" 
+                                       Grid.Column="1" 
+                                       VerticalOptions="Center"/>
+                                <Image Source="chevron_right.png" 
+                                       Grid.Column="2" 
+                                       HeightRequest="20" 
+                                       WidthRequest="20"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Notifications -->
+                        <Border StrokeThickness="1" 
+                                Stroke="#5A339E" 
+                                Padding="15" 
+                                BackgroundColor="Transparent">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="notifications.png" 
+                                       HeightRequest="24" 
+                                       WidthRequest="24"/>
+                                <Label Text="Notifications" 
+                                       Grid.Column="1" 
+                                       VerticalOptions="Center"/>
+                                <Image Source="chevron_right.png" 
+                                       Grid.Column="2" 
+                                       HeightRequest="20" 
+                                       WidthRequest="20"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Privacy -->
+                        <Border StrokeThickness="1" 
+                                Stroke="#5A339E" 
+                                Padding="15" 
+                                BackgroundColor="Transparent">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="10"/>
+                            </Border.StrokeShape>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="privacy.png" 
+                                       HeightRequest="24" 
+                                       WidthRequest="24"/>
+                                <Label Text="Privacy" 
+                                       Grid.Column="1" 
+                                       VerticalOptions="Center"/>
+                                <Image Source="chevron_right.png" 
+                                       Grid.Column="2" 
+                                       HeightRequest="20" 
+                                       WidthRequest="20"/>
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Logout Button -->
+                <Button Text="Log Out"
+                        BackgroundColor="#5A339E"
+                        TextColor="White"
+                        CornerRadius="12"
+                        HeightRequest="50"
+                        Clicked="OnLogoutClicked"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage> 

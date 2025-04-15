@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDoApp.MainPage">
+
+    <ScrollView>
+        <!-- WRAPPED WITH GRADIENT BACKGROUNDD TBC-->
+        <Grid>
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="white" Offset="0.0"/>  <!-- change to 1 to remove gradient temp-->
+                    <GradientStop Color="#BDA7E1" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <VerticalStackLayout Padding="30,0" Spacing="25" >
+            <Image 
+                Source="app_logo" 
+                HeightRequest="150" 
+                Aspect="AspectFit" 
+                Margin="0,120,0,-50" />
+
+                <VerticalStackLayout Padding="15" Spacing="15">
+                    <Border StrokeThickness="2" Stroke="#5A339E" Padding="3" BackgroundColor="White">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Entry Placeholder="Email Address or Username"/>
+                </Border>
+
+                <Border StrokeThickness="2" Stroke="#5A339E" Padding="3" BackgroundColor="White">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Entry x:Name="PasswordEntry"
+                               Placeholder="Password"
+                               IsPassword="True"
+                               Grid.Column="0"/>
+
+                        <ImageButton x:Name="PasswordToggleButton"
+                                     Source="eyebrow.svg"
+                                     BackgroundColor="Transparent"
+                                     WidthRequest="24"
+                                     HeightRequest="24"
+                                     Padding="10"
+                                     Clicked="TogglePasswordVisibility"
+                                     Grid.Column="1" />
+                    </Grid>
+                </Border>
+
+                <Label Margin="5,-10,0,0" 
+                       Text="Forgot Password?"
+                       TextColor="#759ed4"
+                       FontAttributes="Bold"
+                       TextDecorations="Underline"/>
+            </VerticalStackLayout>
+
+            <Border StrokeThickness="0" BackgroundColor="#5A339E" Margin="15,-30,15,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                <Button Text="Log In" BackgroundColor="Transparent" TextColor="White"/>
+            </Border>
+
+            <Border StrokeThickness="0" BackgroundColor="#759ed4" Margin="15,-15,15,0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12"/>
+                </Border.StrokeShape>
+                    <Button Text="Sign Up" BackgroundColor="Transparent" TextColor="White" Clicked="OnSignUpClicked"/>
+                </Border>
+
+                <HorizontalStackLayout Spacing="10" VerticalOptions="Center" Margin="15,15,15,0">
+                    <BoxView BackgroundColor="#5A339E" HeightRequest="1" WidthRequest="140" VerticalOptions="Center"/>
+                    <Label Text="Or" TextColor="#5A339E" VerticalOptions="Center"/>
+                    <BoxView BackgroundColor="#5A339E" HeightRequest="1" WidthRequest="140" VerticalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <Border StrokeThickness="2" Stroke="#5A339E" BackgroundColor="#FFFFFF" Margin="15,0,15,0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Grid Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Image Source="google" HeightRequest="24" WidthRequest="24" Grid.Column="0"/>
+                        <Label Text="Log In with Google" TextColor="#5A339E" VerticalOptions="Center" Grid.Column="1" HorizontalOptions="Center"/>
+                    </Grid>
+                </Border>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

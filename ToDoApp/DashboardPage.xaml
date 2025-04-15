@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ToDoApp"
+             xmlns:models="clr-namespace:ToDoApp.Models"
+             x:Class="ToDoApp.DashboardPage"
+             x:DataType="local:DashboardPage"
+             BackgroundColor="#6A1B9A"
+             Title="ToDo">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="10,40,10,10" Spacing="10">
+            
+            <Label Text="ToDo"
+                   FontSize="28"
+                   HorizontalOptions="Center"
+                   TextColor="White"
+                   FontAttributes="Bold" />
+
+            <Frame BackgroundColor="White"
+                   CornerRadius="20"
+                   HasShadow="True"
+                   Padding="0"
+                   HeightRequest="550">
+                <ListView x:Name="TaskListView"
+                          SeparatorVisibility="None"
+                          HasUnevenRows="True"
+                          SelectionMode="None"
+                          BackgroundColor="Transparent">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="models:TaskItem">
+                            <ViewCell>
+                                <Grid Padding="5">
+                                    <Frame CornerRadius="15" HasShadow="True" Padding="0" HeightRequest="100">
+                                        <Grid>
+                                            <Image Source="{Binding Image}" Aspect="AspectFill" Opacity="0.75"/>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                
+                                                <Button Text="Edit"
+                                                        BackgroundColor="Transparent"
+                                                        TextColor="White"
+                                                        FontSize="12"
+                                                        WidthRequest="60"
+                                                        HeightRequest="30"
+                                                        HorizontalOptions="End"
+                                                        Margin="0,5,5,0"
+                                                        Clicked="OnEditClicked">
+                                                    <Button.Shadow>
+                                                        <Shadow Brush="Black"
+                                                                Offset="0,1"
+                                                                Radius="3"
+                                                                Opacity="0.7"/>
+                                                    </Button.Shadow>
+                                                </Button>
+
+                                                <Grid Grid.Row="1" Padding="10,5">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <Grid Grid.Row="0" ColumnSpacing="0">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Label Grid.Column="0"
+                                                               Text="{Binding Title}" 
+                                                               FontSize="16" 
+                                                               FontAttributes="Bold" 
+                                                               TextColor="#FFD700">
+                                                            <Label.Shadow>
+                                                                <Shadow Brush="Black"
+                                                                        Offset="0,1"
+                                                                        Radius="4"
+                                                                        Opacity="0.9"/>
+                                                            </Label.Shadow>
+                                                        </Label>
+
+                                                        <Label Grid.Column="1"
+                                                               Text=" | " 
+                                                               FontSize="16" 
+                                                               TextColor="#808080"
+                                                               Opacity="0.5">
+                                                            <Label.Shadow>
+                                                                <Shadow Brush="Black"
+                                                                        Offset="0,1"
+                                                                        Radius="4"
+                                                                        Opacity="0.9"/>
+                                                            </Label.Shadow>
+                                                        </Label>
+
+                                                        <Label Grid.Column="2"
+                                                               Text="{Binding Time}" 
+                                                               FontSize="14" 
+                                                               TextColor="#87CEEB"
+                                                               Opacity="0.9"
+                                                               Margin="0,1,0,0">
+                                                            <Label.Shadow>
+                                                                <Shadow Brush="Black"
+                                                                        Offset="0,1"
+                                                                        Radius="4"
+                                                                        Opacity="0.9"/>
+                                                            </Label.Shadow>
+                                                        </Label>
+                                                    </Grid>
+                                                    
+                                                    <Label Grid.Row="1"
+                                                           Text="{Binding Details}" 
+                                                           FontSize="14" 
+                                                           TextColor="#E0E0E0"
+                                                           Margin="0,2,0,0">
+                                                        <Label.Shadow>
+                                                            <Shadow Brush="Black"
+                                                                    Offset="0,1"
+                                                                    Radius="4"
+                                                                    Opacity="0.9"/>
+                                                        </Label.Shadow>
+                                                    </Label>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Frame>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Frame>
+
+            <Button Text="Add Task"
+                    BackgroundColor="White"
+                    TextColor="#6A1B9A"
+                    CornerRadius="12"
+                    HeightRequest="50"
+                    Clicked="OnAddClicked"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

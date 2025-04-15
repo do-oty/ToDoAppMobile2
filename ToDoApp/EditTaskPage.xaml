@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ToDoApp"
+             x:Class="ToDoApp.EditTaskPage"
+             
+             
+             BackgroundColor="White"
+             Title="Edit Task">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+
+       
+        <ScrollView Grid.Row="1" Padding="20">
+            <VerticalStackLayout Spacing="20">
+                <Frame BorderColor="#6A1B9A" Padding="10" CornerRadius="10">
+                    <Entry x:Name="TitleEntry"
+                           Placeholder="Title"
+                           FontSize="16"
+                           TextColor="Black"
+                           HeightRequest="50"/>
+                </Frame>
+
+                <Frame BorderColor="#6A1B9A" Padding="10" CornerRadius="10">
+                    <Editor x:Name="DetailsEditor"
+                            Placeholder="Add Details here.."
+                            FontSize="14"
+                            TextColor="Black"
+                            HeightRequest="200"/>
+                </Frame>
+
+                <Button Text="Update"
+                        BackgroundColor="#6A1B9A"
+                        TextColor="White"
+                        CornerRadius="12"
+                        HeightRequest="50"
+                        Clicked="OnUpdateClicked"/>
+
+                <Button Text="Complete"
+                        BackgroundColor="LimeGreen"
+                        TextColor="White"
+                        CornerRadius="12"
+                        HeightRequest="50"
+                        Clicked="OnCompleteClicked"/>
+
+                <Button Text="Delete"
+                        BackgroundColor="Red"
+                        TextColor="White"
+                        CornerRadius="12"
+                        HeightRequest="50"
+                        Clicked="OnDeleteClicked"/>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Navigation Buttons -->
+      
+    </Grid>
+</ContentPage>

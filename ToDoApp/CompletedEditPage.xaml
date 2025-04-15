@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ToDoApp"
+             x:Class="ToDoApp.CompletedEditPage"
+             BackgroundColor="#6A1B9A"
+             Title="Edit Task">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20,40,20,20" Spacing="20">
+            <Label Text="Edit Completed Task"
+                   FontSize="28"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+
+            <Frame BackgroundColor="White"
+                   Padding="20"
+                   CornerRadius="20"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="20">
+                    <Border StrokeThickness="1" 
+                            Stroke="#5A339E" 
+                            BackgroundColor="White">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Entry x:Name="TitleEntry"
+                               Placeholder="Title"
+                               TextColor="#5A339E"
+                               BackgroundColor="Transparent"
+                               Margin="10,0"/>
+                    </Border>
+
+                    <Border StrokeThickness="1" 
+                            Stroke="#5A339E" 
+                            BackgroundColor="White">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Editor x:Name="DescriptionEditor"
+                                Placeholder="Add Details here..."
+                                TextColor="#5A339E"
+                                BackgroundColor="Transparent"
+                                HeightRequest="150"
+                                Margin="10"/>
+                    </Border>
+
+                    <Border StrokeThickness="0" 
+                            BackgroundColor="#5A339E">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Button Text="Update Task"
+                                BackgroundColor="Transparent"
+                                TextColor="White"
+                                Clicked="OnSaveClicked"/>
+                    </Border>
+
+                    <Border StrokeThickness="1" 
+                            Stroke="#FF0000" 
+                            BackgroundColor="Transparent">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Button Text="Delete Task"
+                                BackgroundColor="Transparent"
+                                TextColor="#FF0000"
+                                Clicked="OnDeleteClicked"/>
+                    </Border>
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="ToDoApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ToDoApp"
+    Shell.FlyoutBehavior="Disabled">
+
+    <ShellContent
+        Route="LoginPage"
+        ContentTemplate="{DataTemplate local:LoginPage}"
+        Shell.NavBarIsVisible="False" />
+
+    <TabBar x:Name="MainTabs">
+        <ShellContent
+            Title="ToDo"
+            Icon="todo.png"
+            ContentTemplate="{DataTemplate local:DashboardPage}"
+            Route="DashboardPage"
+            Shell.NavBarIsVisible="False" />
+
+        <ShellContent
+            Title="Completed"
+            Icon="check.png"
+            ContentTemplate="{DataTemplate local:CompletedDashboardPage}"
+            Route="CompletedDashboardPage"
+            Shell.NavBarIsVisible="False" />
+
+        <ShellContent
+            Title="Profile"
+            Icon="profile.png"
+            ContentTemplate="{DataTemplate local:ProfilePage}"
+            Route="ProfilePage"
+            Shell.NavBarIsVisible="False" />
+    </TabBar>
+
+    <ShellContent
+        Route="SignUpPage"
+        ContentTemplate="{DataTemplate local:SignUpPage}"
+        Shell.NavBarIsVisible="False" />
+
+    <ShellContent
+        Route="AddTaskPage"
+        ContentTemplate="{DataTemplate local:AddTaskPage}"
+        Shell.NavBarIsVisible="False" />
+
+    <ShellContent
+        Route="EditTaskPage"
+        ContentTemplate="{DataTemplate local:EditTaskPage}"
+        Shell.NavBarIsVisible="False" />
+
+    <ShellContent
+        Route="CompletedEditPage"
+        ContentTemplate="{DataTemplate local:CompletedEditPage}"
+        Shell.NavBarIsVisible="False" />
+
+</Shell>
