@@ -5,12 +5,16 @@
              BackgroundColor="White"
              Title="Add Task">
 
+    <!-- Main Content -->
     <Grid RowDefinitions="Auto,*,Auto">
-
-      
         <ScrollView Grid.Row="1" Padding="20">
             <VerticalStackLayout Spacing="20">
-                <Frame BorderColor="#6A1B9A" Padding="10" CornerRadius="10">
+                <!-- Title Entry -->
+                <Frame BorderColor="#6A1B9A" 
+                       BackgroundColor="#F5F5F5"
+                       Padding="10" 
+                       CornerRadius="10"
+                       HasShadow="False">
                     <Entry x:Name="TitleEntry"
                            Placeholder="Title"
                            BackgroundColor="Transparent"
@@ -19,7 +23,12 @@
                            HeightRequest="50"/>
                 </Frame>
 
-                <Frame BorderColor="#6A1B9A" Padding="10" CornerRadius="10">
+                <!-- Details Editor -->
+                <Frame BorderColor="#6A1B9A" 
+                       BackgroundColor="#F5F5F5"
+                       Padding="10" 
+                       CornerRadius="10"
+                       HasShadow="False">
                     <Editor x:Name="DetailsEditor"
                             Placeholder="Add Details here..."
                             HeightRequest="200"
@@ -28,13 +37,22 @@
                             BackgroundColor="Transparent"/>
                 </Frame>
 
-                <Button Text="Add"
+                <!-- Add Button -->
+                <Button x:Name="AddButton"
+                        Text="Add"
                         BackgroundColor="#6A1B9A"
                         TextColor="White"
                         FontSize="16"
                         CornerRadius="12"
                         HeightRequest="50"
                         Clicked="OnAddClicked"/>
+
+                <!-- Loading Indicator -->
+                <ActivityIndicator x:Name="LoadingIndicator"
+                                 IsVisible="False"
+                                 IsRunning="False"
+                                 Color="#6A1B9A"
+                                 HorizontalOptions="Center"/>
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

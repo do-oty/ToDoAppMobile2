@@ -1,17 +1,20 @@
-using System.Text.Json;
+using System.Diagnostics;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ToDoApp.Services
 {
     public class ApiService
     {
         private readonly HttpClient _httpClient;
-        private const string BaseUrl = "http://todo-list.dcism.org";
+        private const string BaseUrl = "https://todo-list.dcism.org";
 
         public ApiService()
         {
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = new Uri(BaseUrl);
+            Debug.WriteLine($"[ApiService] Initialized with base URL: {BaseUrl}");
         }
 
         public class SignUpRequest
@@ -46,23 +49,28 @@ namespace ToDoApp.Services
             public string? message { get; set; }
         }
 
-        public class TodoItem
+        public class TodoItemData
         {
-            public int item_id { get; set; }
-            public required string item_name { get; set; }
-            public required string item_description { get; set; }
-            public required string status { get; set; }
-            public int user_id { get; set; }
-            public required string timemodified { get; set; }
+            public int? item_id { get; set; } = null;
+            public string? item_name { get; set; } = string.Empty;
+            public string? item_description { get; set; } = string.Empty;
+            public string? status { get; set; } = "active";
+            public int? user_id { get; set; } = null;
+            public string? timemodified { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         public class TodoItemsResponse
         {
             public int status { get; set; }
-            public Dictionary<string, TodoItem>? data { get; set; }
-            public required string count { get; set; }
+            public Dictionary<string, TodoItemData>? data { get; set; }
+            public int count { get; set; }
         }
-
+        public class AddTodoItemResponse
+        {
+            public int status { get; set; }
+            public TodoItemData? data { get; set; }
+            public string? message { get; set; }
+        }
         public async Task<ApiResponse> SignUpAsync(string firstName, string lastName, string email, string password, string confirmPassword)
         {
             try
@@ -135,25 +143,68 @@ namespace ToDoApp.Services
 
         public async Task<TodoItemsResponse> GetTodoItemsAsync(string status, int userId)
         {
-            var response = await _httpClient.GetAsync($"/getItems_action.php?status={status}&user_id={userId}");
-            var responseString = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<TodoItemsResponse>(responseString);
+            try
+            {
+                var response = await _httpClient.GetAsync($"/getItems_action.php?status={status}&user_id={userId}");
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                // Add debug logging to see the actual response
+                Debug.WriteLine($"API Response: {responseString}");
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    NumberHandling = JsonNumberHandling.AllowReadingFromString
+                };
+
+                return JsonSerializer.Deserialize<TodoItemsResponse>(responseString, options);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error deserializing todo items: {ex}");
+                throw;
+            }
         }
 
-        public async Task<ApiResponse> AddTodoItemAsync(string itemName, string itemDescription, int userId)
+        public async Task<AddTodoItemResponse> AddTodoItemAsync(string itemName, string itemDescription, int userId)
         {
-            var request = new
+            try
             {
-                item_name = itemName,
-                item_description = itemDescription,
-                user_id = userId
-            };
+                var request = new
+                {
+                    item_name = itemName,
+                    item_description = itemDescription,
+                    user_id = userId
+                };
 
-            var json = JsonSerializer.Serialize(request);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync("/addItem_action.php", content);
-            var responseString = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<ApiResponse>(responseString);
+                var json = JsonSerializer.Serialize(request);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync("/addItem_action.php", content);
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                Debug.WriteLine($"API Response: {responseString}");
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                };
+
+                var result = JsonSerializer.Deserialize<AddTodoItemResponse>(responseString, options);
+
+                if (result?.data == null)
+                {
+                    throw new Exception("Invalid API response format - missing data");
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"API Error: {ex}");
+                throw new Exception("Failed to process API response", ex);
+            }
         }
 
         public async Task<ApiResponse> UpdateTodoItemAsync(string itemName, string itemDescription, int userId)
