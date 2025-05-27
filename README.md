@@ -2,7 +2,7 @@
 # ToDoApp
 
 A modern, cross-platform mobile task management app built with .NET MAUI.  
-**Features a beautiful login/register experience, Google sign-in, and a clean dashboard for managing your tasks.**
+**Features a beautiful login/register experience, Google sign-in(not implemented), and a clean dashboard for managing your tasks.**
 
 ---
 
@@ -59,7 +59,7 @@ A modern, cross-platform mobile task management app built with .NET MAUI.
      ```sh
      dotnet build -t:Run -f net8.0-android
      ```
-   - For iOS/MacCatalyst/Windows, use the appropriate target framework.
+
 
 4. **Login/Register**
    - The app always opens at the login page.
