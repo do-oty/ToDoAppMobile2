@@ -2,160 +2,50 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ToDoApp.CompletedDashboardPage"
-             BackgroundColor="#6A1B9A"
-             Title="Completed">
-
-    <Grid>
-        <ScrollView>
-            <VerticalStackLayout Padding="10,40,10,10" Spacing="10">
-
-                <Label Text="Completed Tasks"
-                       FontSize="28"
-                       HorizontalOptions="Center"
-                       TextColor="White"
-                       FontAttributes="Bold" />
-
-                <Frame BackgroundColor="White"
-                       CornerRadius="20"
-                       HasShadow="True"
-                       Padding="0"
-                       HeightRequest="550">
-                    <ListView x:Name="CompletedTaskListView"
-                              SeparatorVisibility="None"
-                              HasUnevenRows="True"
-                              SelectionMode="None"
-                              BackgroundColor="Transparent">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <Grid Padding="5">
-                                        <Frame CornerRadius="15" HasShadow="True" Padding="0" HeightRequest="100">
-                                            <Grid>
-                                                <Image Source="{Binding Image}" Aspect="AspectFill" Opacity="0.75"/>
-                                                <Grid>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="Auto"/>
-                                                        <RowDefinition Height="*"/>
-                                                    </Grid.RowDefinitions>
-
-                                                    <Button Text="Edit"
-                                                            BackgroundColor="Transparent"
-                                                            TextColor="White"
-                                                            FontSize="12"
-                                                            WidthRequest="60"
-                                                            HeightRequest="30"
-                                                            HorizontalOptions="End"
-                                                            Margin="0,5,5,0"
-                                                            Clicked="OnEditClicked"
-                                                            CommandParameter="{Binding .}">
-                                                        <Button.Shadow>
-                                                            <Shadow Brush="Black"
-                                                                    Offset="0,1"
-                                                                    Radius="3"
-                                                                    Opacity="0.7"/>
-                                                        </Button.Shadow>
-                                                    </Button>
-
-                                                    <Grid Grid.Row="1" Padding="10,5">
-                                                        <Grid.RowDefinitions>
-                                                            <RowDefinition Height="Auto"/>
-                                                            <RowDefinition Height="Auto"/>
-                                                        </Grid.RowDefinitions>
-
-                                                        <Grid Grid.Row="0" ColumnSpacing="0">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                                <ColumnDefinition Width="Auto"/>
-                                                                <ColumnDefinition Width="*"/>
-                                                            </Grid.ColumnDefinitions>
-
-                                                            <Label Grid.Column="0"
-                                                                   Text="{Binding Title}" 
-                                                                   FontSize="16" 
-                                                                   FontAttributes="Bold" 
-                                                                   TextColor="#98FB98">
-                                                                <Label.Shadow>
-                                                                    <Shadow Brush="Black"
-                                                                            Offset="0,1"
-                                                                            Radius="4"
-                                                                            Opacity="0.9"/>
-                                                                </Label.Shadow>
-                                                            </Label>
-
-                                                            <Label Grid.Column="1"
-                                                                   Text=" | " 
-                                                                   FontSize="16" 
-                                                                   TextColor="#808080"
-                                                                   Opacity="0.5">
-                                                                <Label.Shadow>
-                                                                    <Shadow Brush="Black"
-                                                                            Offset="0,1"
-                                                                            Radius="4"
-                                                                            Opacity="0.9"/>
-                                                                </Label.Shadow>
-                                                            </Label>
-
-                                                            <Label Grid.Column="2"
-                                                                   Text="{Binding Time}" 
-                                                                   FontSize="14" 
-                                                                   TextColor="#87CEEB"
-                                                                   Opacity="0.9"
-                                                                   Margin="0,1,0,0">
-                                                                <Label.Shadow>
-                                                                    <Shadow Brush="Black"
-                                                                            Offset="0,1"
-                                                                            Radius="4"
-                                                                            Opacity="0.9"/>
-                                                                </Label.Shadow>
-                                                            </Label>
-                                                        </Grid>
-
-                                                        <Label Grid.Row="1"
-                                                               Text="{Binding Description}" 
-                                                               FontSize="14" 
-                                                               TextColor="#E0E0E0"
-                                                               Margin="0,2,0,0">
-                                                            <Label.Shadow>
-                                                                <Shadow Brush="Black"
-                                                                        Offset="0,1"
-                                                                        Radius="4"
-                                                                        Opacity="0.9"/>
-                                                            </Label.Shadow>
-                                                        </Label>
-                                                    </Grid>
-                                                </Grid>
-                                            </Grid>
-                                        </Frame>
-                                    </Grid>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Frame>
-            </VerticalStackLayout>
-        </ScrollView>
-
-        <!-- Loading Overlay -->
-        <Grid x:Name="LoadingOverlay" 
-              IsVisible="False"
-              BackgroundColor="#80000000"
-              VerticalOptions="FillAndExpand"
-              HorizontalOptions="FillAndExpand"
-              ZIndex="1000">
-
-            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                <ActivityIndicator x:Name="LoadingIndicator"
-                                 IsRunning="False"
-                                 Color="White"
-                                 WidthRequest="50"
-                                 HeightRequest="50"/>
-                <Label x:Name="LoadingTextLabel"
-                       Text="Loading completed tasks..."
-                       TextColor="White"
-                       FontSize="16"
-                       HorizontalOptions="Center"
-                       Margin="0,10,0,0"/>
-            </StackLayout>
-        </Grid>
+             BackgroundColor="#F5EAFE"
+             Title="Completed Tasks">
+    <ContentPage.Resources>
+        <Style x:Key="TaskFrame" TargetType="Frame">
+            <Setter Property="CornerRadius" Value="16" />
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="BorderColor" Value="#B39DDB" />
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="Margin" Value="0,0,0,16" />
+        </Style>
+        <Style x:Key="PurpleCheckBox" TargetType="CheckBox">
+            <Setter Property="Color" Value="#6C3DD6" />
+            <Setter Property="BackgroundColor" Value="White" />
+            <Setter Property="HeightRequest" Value="28" />
+            <Setter Property="WidthRequest" Value="28" />
+        </Style>
+        <Style x:Key="ActionButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#F3E5F5" />
+            <Setter Property="TextColor" Value="#4A148C" />
+            <Setter Property="CornerRadius" Value="16" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="HeightRequest" Value="36" />
+            <Setter Property="WidthRequest" Value="44" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="*,Auto" Padding="24,24,24,24">
+        <!-- Main Content -->
+        <RefreshView Grid.Row="0" IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
+            <CollectionView ItemsSource="{Binding CompletedTasks}" EmptyView="No completed tasks">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Style="{StaticResource TaskFrame}">
+                            <Grid ColumnDefinitions="*,Auto,Auto,Auto" RowDefinitions="Auto,Auto" ColumnSpacing="8">
+                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Title}" FontSize="16" FontAttributes="Bold" TextColor="#4A148C" VerticalOptions="Center" />
+                                <Button Grid.Row="0" Grid.Column="1" Text="✏️" Clicked="OnEditClicked" Style="{StaticResource ActionButton}" />
+                                <Button Grid.Row="0" Grid.Column="2" Text="🗑️" Clicked="OnDeleteClicked" Style="{StaticResource ActionButton}" />
+                                <CheckBox Grid.Row="0" Grid.Column="3" Style="{StaticResource PurpleCheckBox}" IsChecked="False" CheckedChanged="OnRestoreCheckedChanged" VerticalOptions="Center" />
+                                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Text="{Binding Description}" FontSize="14" TextColor="#6C3DD6" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
     </Grid>
 </ContentPage>

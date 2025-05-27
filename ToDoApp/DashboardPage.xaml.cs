@@ -1,177 +1,162 @@
 using Microsoft.Maui.Controls;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Text.Json;
+using System.Windows.Input;
 using ToDoApp.Models;
 using ToDoApp.Services;
 
 namespace ToDoApp
 {
-    [QueryProperty(nameof(UserId), "userId")]
     public partial class DashboardPage : ContentPage
     {
-        private readonly ApiService _apiService;
-        private ObservableCollection<TaskItem> _taskItems;
+        private readonly TodoService _todoService;
+        private ObservableCollection<TaskItem> _activeTasks;
         private string _userId;
+        private bool _isRefreshing;
 
-        public string UserId
+        public ObservableCollection<TaskItem> ActiveTasks => _activeTasks;
+        public bool IsRefreshing
         {
-            get => _userId;
-            set
-            {
-                _userId = value;
-                // Load tasks when userId is set
-                if (int.TryParse(_userId, out int userId))
-                {
-                    LoadTasks(userId);
-                }
-            }
+            get => _isRefreshing;
+            set { _isRefreshing = value; OnPropertyChanged(); }
         }
+        public ICommand RefreshCommand => new Command(async () => await LoadTasks());
 
         public DashboardPage()
         {
             InitializeComponent();
-            _apiService = new ApiService();
-            _taskItems = new ObservableCollection<TaskItem>();
-            TaskListView.ItemsSource = _taskItems;
+            _todoService = Application.Current.Handler.MauiContext.Services.GetService<TodoService>();
+            _activeTasks = new ObservableCollection<TaskItem>();
+            BindingContext = this;
+            _userId = Preferences.Get("UserId", string.Empty);
+            _ = LoadTasks();
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            // Refresh when page appears
-            if (int.TryParse(_userId, out int userId))
-            {
-                LoadTasks(userId);
-            }
+            if (string.IsNullOrEmpty(_userId))
+                _userId = Preferences.Get("UserId", string.Empty);
+            _ = LoadTasks();
         }
 
-        private async Task ShowLoading(bool show, string message = "Loading tasks...")
-        {
-            LoadingOverlay.IsVisible = show;
-            LoadingIndicator.IsRunning = show;
-            LoadingTextLabel.Text = message;
-
-            // Disable interaction with the underlying content when loading
-            TaskListView.IsEnabled = !show;
-        }
-
-        private async Task LoadTasks(int userId)
+        private async Task LoadTasks()
         {
             try
             {
-                await ShowLoading(true);
-                Debug.WriteLine($"[Dashboard] Loading tasks for user {userId}");
-
-                // Check connectivity first
-                if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+                IsRefreshing = true;
+                if (!int.TryParse(_userId, out int userId))
                 {
-                    Debug.WriteLine("[Dashboard] No internet connection");
-                    await ShowLoading(false);
-                    await DisplayAlert("Connection Issue", "Please check your internet connection and try again", "OK");
+                    await DisplayAlert("Error", "Invalid user ID", "OK");
                     return;
                 }
-
-                var response = await _apiService.GetTodoItemsAsync("all", userId);
-
-                if (response?.status == 200 && response.data != null)
+                var (success, items, message) = await _todoService.GetTodoItemsAsync("active", userId);
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
-                    Debug.WriteLine($"[Dashboard] Received {response.data.Count} tasks");
-                    _taskItems.Clear();
-
-                    foreach (var item in response.data.Values)
+                    _activeTasks.Clear();
+                    if (success && items != null)
                     {
-                        _taskItems.Add(new TaskItem
+                        foreach (var item in items)
                         {
-                            Id = item.item_id ?? 0,
-                            Title = item.item_name ?? "Untitled Task",
-                            Description = item.item_description ?? string.Empty,
-                            Status = item.status ?? "active",
-                            UserId = item.user_id ?? userId,
-                            Time = DateTime.TryParse(item.timemodified, out var time)
-                                ? time.ToString("h:mm tt")
-                                : DateTime.Now.ToString("h:mm tt"),
-                            Details = item.item_description ?? string.Empty,
-                            Image = GetImageForStatus(item.status ?? "active")
-                        });
+                            _activeTasks.Add(new TaskItem
+                            {
+                                Id = item.ItemId,
+                                Title = item.ItemName,
+                                Description = item.ItemDescription,
+                                Status = item.Status,
+                                UserId = item.UserId
+                            });
+                        }
                     }
-                }
-                else if (response != null)
-                {
-                    // Handle API error responses
-                    string errorDetail = response.status switch
-                    {
-                        401 => "Please login again",
-                        404 => "No tasks found",
-                        500 => "Server error occurred",
-                        _ => "Failed to load tasks"
-                    };
-
-                    Debug.WriteLine($"[Dashboard] API Error - Status: {response.status}");
-                    await DisplayAlert("Error", errorDetail, "OK");
-                }
-                else
-                {
-                    Debug.WriteLine("[Dashboard] Empty API response");
-                    await DisplayAlert("Error", "Received empty response from server", "OK");
-                }
-            }
-            catch (HttpRequestException httpEx) when (httpEx.Message.Contains("404"))
-            {
-                Debug.WriteLine($"[Dashboard] 404 Error: {httpEx}");
-                await DisplayAlert("Not Found", "The requested data couldn't be found", "OK");
-            }
-            catch (HttpRequestException httpEx)
-            {
-                Debug.WriteLine($"[Dashboard] Network Error: {httpEx}");
-                await DisplayAlert("Connection Error", "Couldn't connect to the server. Please try again later.", "OK");
-            }
-            catch (JsonException jsonEx)
-            {
-                Debug.WriteLine($"[Dashboard] JSON Error: {jsonEx}");
-                await DisplayAlert("Data Error", "There was a problem processing the response", "OK");
+                });
+                if (!success)
+                    await DisplayAlert("Error", message, "OK");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[Dashboard] Unexpected Error: {ex}");
-                await DisplayAlert("Error", "An unexpected error occurred", "OK");
+                Debug.WriteLine($"[Dashboard] Error: {ex}");
+                await DisplayAlert("Error", "Failed to load tasks", "OK");
             }
             finally
             {
-                await ShowLoading(false);
+                IsRefreshing = false;
             }
         }
 
-        private string GetImageForStatus(string status)
-        {
-            return status.ToLower() switch
-            {
-                "completed" => "completed_task.jpg",
-                "active" => "active_task.jpg",
-                _ => "default_task.jpg"
-            };
-        }
-
-        private async void OnAddClicked(object sender, EventArgs e)
+        private async void OnAddTaskClicked(object sender, EventArgs e)
         {
             if (int.TryParse(_userId, out int userId))
             {
-                await Navigation.PushAsync(new AddTaskPage(userId, async () =>
-                {
-                    Debug.WriteLine("[Dashboard] Refresh callback triggered");
-                    await LoadTasks(userId);
-                }));
+                await Navigation.PushAsync(new AddTaskPage(userId, async () => await LoadTasks(), _todoService));
             }
         }
 
         private async void OnEditClicked(object sender, EventArgs e)
         {
-            var button = sender as Button;
-            var taskItem = button?.BindingContext as TaskItem;
-
-            if (taskItem != null)
+            if (sender is Button button && button.BindingContext is TaskItem taskItem)
             {
-                await Navigation.PushAsync(new EditTaskPage(taskItem));
+                await Navigation.PushAsync(new EditTaskPage(taskItem, async () => await LoadTasks(), _todoService));
+            }
+        }
+
+        private void OnTaskCheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            if (sender is CheckBox checkbox && checkbox.BindingContext is TaskItem taskItem)
+            {
+                if (e.Value)
+                {
+                    _ = HandleTaskCheckedAsync(taskItem, checkbox);
+                }
+            }
+        }
+
+        private async Task HandleTaskCheckedAsync(TaskItem taskItem, CheckBox checkbox)
+        {
+            var (success, message) = await _todoService.ChangeTodoStatusAsync("inactive", taskItem.Id);
+            if (success)
+            {
+                ActiveTasks.Remove(taskItem);
+            }
+            else
+            {
+                await DisplayAlert("Error", message, "OK");
+                checkbox.IsChecked = false;
+            }
+        }
+
+        private async void OnDeleteClicked(object sender, EventArgs e)
+        {
+            if (sender is Button button && button.BindingContext is TaskItem taskItem)
+            {
+                var confirm = await DisplayAlert("Delete Task", "Are you sure you want to delete this task?", "Yes", "No");
+                if (confirm)
+                {
+                    var (success, message) = await _todoService.DeleteTodoItemAsync(taskItem.Id);
+                    if (success)
+                    {
+                        ActiveTasks.Remove(taskItem);
+                    }
+                    else
+                    {
+                        await DisplayAlert("Error", message, "OK");
+                    }
+                }
+            }
+        }
+
+        private async void OnCompleteClicked(object sender, EventArgs e)
+        {
+            if (sender is Button button && button.BindingContext is TaskItem taskItem)
+            {
+                var (success, message) = await _todoService.ChangeTodoStatusAsync("inactive", taskItem.Id);
+                if (success)
+                {
+                    ActiveTasks.Remove(taskItem);
+                }
+                else
+                {
+                    await DisplayAlert("Error", message, "OK");
+                }
             }
         }
     }

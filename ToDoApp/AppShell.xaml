@@ -6,11 +6,6 @@
     xmlns:local="clr-namespace:ToDoApp"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Route="LoginPage"
-        ContentTemplate="{DataTemplate local:LoginPage}"
-        Shell.NavBarIsVisible="False" />
-
     <TabBar x:Name="MainTabs">
         <ShellContent
             Title="ToDo"
@@ -35,8 +30,13 @@
     </TabBar>
 
     <ShellContent
-        Route="SignUpPage"
-        ContentTemplate="{DataTemplate local:SignUpPage}"
+        Route="LoginPage"
+        ContentTemplate="{DataTemplate local:LoginPage}"
+        Shell.NavBarIsVisible="False" />
+
+    <ShellContent
+        Route="RegisterPage"
+        ContentTemplate="{DataTemplate local:RegisterPage}"
         Shell.NavBarIsVisible="False" />
 
     <ShellContent

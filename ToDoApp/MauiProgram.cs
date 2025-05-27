@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Handlers;
+using ToDoApp.Services;
 
 namespace ToDoApp;
 
@@ -16,6 +17,8 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
 
+        builder.Services.AddSingleton<UserService>();
+        builder.Services.AddSingleton<TodoService>();
 
         EntryHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
         {

@@ -1,19 +1,26 @@
 ﻿using Microsoft.Maui.Controls;
+using ToDoApp.Services;
 
 namespace ToDoApp;
 
 public partial class AppShell : Shell
 {
-    public AppShell()
+    private readonly UserService _userService;
+
+    public AppShell(UserService userService)
     {
         InitializeComponent();
+        _userService = userService;
         RegisterRoutes();
+        
+        // Always start with login page
+        Device.BeginInvokeOnMainThread(async () => await GoToAsync("//LoginPage"));
     }
 
     private void RegisterRoutes()
     {
         Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
-        Routing.RegisterRoute(nameof(SignUpPage), typeof(SignUpPage));
+        Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
         Routing.RegisterRoute(nameof(DashboardPage), typeof(DashboardPage));
         Routing.RegisterRoute(nameof(AddTaskPage), typeof(AddTaskPage));
         Routing.RegisterRoute(nameof(EditTaskPage), typeof(EditTaskPage));

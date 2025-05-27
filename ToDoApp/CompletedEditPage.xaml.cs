@@ -35,9 +35,9 @@ namespace ToDoApp
                 }
 
                 var response = await _apiService.UpdateTodoItemAsync(
+                    _task.Id,
                     TitleEntry.Text.Trim(),
-                    DescriptionEditor.Text?.Trim() ?? "",
-                    _task.Id
+                    DescriptionEditor.Text?.Trim() ?? ""
                 );
 
                 if (response.status == 200)

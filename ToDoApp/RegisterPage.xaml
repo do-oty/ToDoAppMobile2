@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ToDoApp.RegisterPage"
+             BackgroundColor="#ede3fa"
+             Title="Register">
+    <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" RowSpacing="10" Padding="24,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" /> <!-- Logo -->
+            <RowDefinition Height="16" />
+            <RowDefinition Height="Auto" /> <!-- First Name -->
+            <RowDefinition Height="8" />
+            <RowDefinition Height="Auto" /> <!-- Last Name -->
+            <RowDefinition Height="8" />
+            <RowDefinition Height="Auto" /> <!-- Email -->
+            <RowDefinition Height="8" />
+            <RowDefinition Height="Auto" /> <!-- Password -->
+            <RowDefinition Height="8" />
+            <RowDefinition Height="Auto" /> <!-- Confirm Password -->
+            <RowDefinition Height="16" />
+            <RowDefinition Height="Auto" /> <!-- Sign Up Button -->
+            <RowDefinition Height="8" />
+            <RowDefinition Height="Auto" /> <!-- Navigation Text -->
+            <RowDefinition Height="12" />
+            <RowDefinition Height="Auto" /> <!-- Divider -->
+            <RowDefinition Height="12" />
+            <RowDefinition Height="Auto" /> <!-- Google Button -->
+        </Grid.RowDefinitions>
+
+        <Image Grid.Row="0" Source="app_logo" HeightRequest="160" HorizontalOptions="Center" Margin="0,0,0,0" />
+
+        <Frame Grid.Row="2" CornerRadius="8" Padding="0" BackgroundColor="White" HasShadow="False" BorderColor="#B39DDB" HeightRequest="40" HorizontalOptions="Fill" Margin="0,0,0,0">
+            <Entry x:Name="FirstNameEntry" Placeholder="First Name" Keyboard="Default" BackgroundColor="Transparent" FontSize="14" TextColor="#5B2E91" Margin="8,0" />
+        </Frame>
+        <Frame Grid.Row="4" CornerRadius="8" Padding="0" BackgroundColor="White" HasShadow="False" BorderColor="#B39DDB" HeightRequest="40" HorizontalOptions="Fill" Margin="0,0,0,0">
+            <Entry x:Name="LastNameEntry" Placeholder="Last Name" Keyboard="Default" BackgroundColor="Transparent" FontSize="14" TextColor="#5B2E91" Margin="8,0" />
+        </Frame>
+        <Frame Grid.Row="6" CornerRadius="8" Padding="0" BackgroundColor="White" HasShadow="False" BorderColor="#B39DDB" HeightRequest="40" HorizontalOptions="Fill" Margin="0,0,0,0">
+            <Entry x:Name="EmailEntry" Placeholder="Email Address" Keyboard="Email" BackgroundColor="Transparent" FontSize="14" TextColor="#5B2E91" Margin="8,0" />
+        </Frame>
+        <Frame Grid.Row="8" CornerRadius="8" Padding="0" BackgroundColor="White" HasShadow="False" BorderColor="#B39DDB" HeightRequest="40" HorizontalOptions="Fill" Margin="0,0,0,0">
+            <Grid>
+                <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" BackgroundColor="Transparent" FontSize="14" TextColor="#5B2E91" Margin="8,0,28,0" />
+                <Button x:Name="PasswordToggleButton" Text="👁️" Clicked="OnPasswordToggleClicked" BackgroundColor="Transparent" WidthRequest="24" HeightRequest="24" HorizontalOptions="End" VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+        <Frame Grid.Row="10" CornerRadius="8" Padding="0" BackgroundColor="White" HasShadow="False" BorderColor="#B39DDB" HeightRequest="40" HorizontalOptions="Fill" Margin="0,0,0,0">
+            <Grid>
+                <Entry x:Name="ConfirmPasswordEntry" Placeholder="Confirm Password" IsPassword="True" BackgroundColor="Transparent" FontSize="14" TextColor="#5B2E91" Margin="8,0,28,0" />
+                <Button x:Name="ConfirmPasswordToggleButton" Text="👁️" Clicked="OnConfirmPasswordToggleClicked" BackgroundColor="Transparent" WidthRequest="24" HeightRequest="24" HorizontalOptions="End" VerticalOptions="Center" />
+            </Grid>
+        </Frame>
+        <Button Grid.Row="12" x:Name="RegisterButton" Text="Sign Up" Clicked="OnSignUpClicked" BackgroundColor="#6C3DD6" TextColor="White" FontSize="15" CornerRadius="12" HeightRequest="40" HorizontalOptions="Fill" />
+        <HorizontalStackLayout Grid.Row="14" HorizontalOptions="Center">
+            <Label Text="Already have an account? " TextColor="#5B2E91" FontSize="12" />
+            <Label Text="Sign In" TextColor="#759ed4" TextDecorations="Underline" FontAttributes="Bold" FontSize="12">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnSignInTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+        </HorizontalStackLayout>
+        <Grid Grid.Row="16" ColumnDefinitions="*,Auto,*" HorizontalOptions="Fill" VerticalOptions="Center">
+            <BoxView Grid.Column="0" HeightRequest="1" BackgroundColor="#B39DDB" VerticalOptions="Center" />
+            <Label Grid.Column="1" Text="Or" TextColor="#5B2E91" HorizontalOptions="Center" FontSize="11" />
+            <BoxView Grid.Column="2" HeightRequest="1" BackgroundColor="#B39DDB" VerticalOptions="Center" />
+        </Grid>
+        <Button Grid.Row="18" Text="Sign Up with Google" BackgroundColor="White" TextColor="#5B2E91" FontSize="14" CornerRadius="12" HeightRequest="40" HorizontalOptions="Fill" BorderColor="#B39DDB" BorderWidth="1" ImageSource="google" />
+    </Grid>
+</ContentPage> 

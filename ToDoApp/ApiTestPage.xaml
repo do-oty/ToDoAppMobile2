@@ -1,34 +1,155 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ToDoApp"
              x:Class="ToDoApp.ApiTestPage"
-             Title="API Test">
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
-            <Label Text="API Test Page" FontSize="24" FontAttributes="Bold"/>
-            
-            <!-- Test Sign Up -->
-            <Label Text="Test Sign Up" FontSize="20" FontAttributes="Bold"/>
-            <Entry x:Name="SignUpFirstName" Placeholder="First Name"/>
-            <Entry x:Name="SignUpLastName" Placeholder="Last Name"/>
-            <Entry x:Name="SignUpEmail" Placeholder="Email"/>
-            <Entry x:Name="SignUpPassword" Placeholder="Password" IsPassword="True"/>
-            <Entry x:Name="SignUpConfirmPassword" Placeholder="Confirm Password" IsPassword="True"/>
-            <Button Text="Test Sign Up" Clicked="OnTestSignUpClicked"/>
-            
-            <!-- Test Sign In -->
-            <Label Text="Test Sign In" FontSize="20" FontAttributes="Bold"/>
-            <Entry x:Name="SignInEmail" Placeholder="Email"/>
-            <Entry x:Name="SignInPassword" Placeholder="Password" IsPassword="True"/>
-            <Button Text="Test Sign In" Clicked="OnTestSignInClicked"/>
-            
-            <!-- Response Display -->
-            <Frame BorderColor="Gray" Padding="10">
-                <VerticalStackLayout>
-                    <Label Text="API Response:" FontAttributes="Bold"/>
-                    <Label x:Name="ResponseLabel" Text="No response yet"/>
-                </VerticalStackLayout>
-            </Frame>
-        </VerticalStackLayout>
-    </ScrollView>
+             Title="API Test"
+             BackgroundColor="#F8F9FA">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Frame Grid.Row="0" 
+               BackgroundColor="White"
+               Padding="20,40,20,20"
+               CornerRadius="0"
+               HasShadow="True">
+            <VerticalStackLayout Spacing="5">
+                <Label Text="API Testing"
+                       FontSize="28"
+                       TextColor="#6200EA"
+                       FontAttributes="Bold"/>
+                <Label Text="Test the API endpoints"
+                       FontSize="16"
+                       TextColor="#666666"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Content -->
+        <ScrollView Grid.Row="1" Margin="0,-20,0,0">
+            <Grid Padding="20" RowSpacing="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Sign Up Section -->
+                <Frame Grid.Row="0"
+                       BackgroundColor="White"
+                       CornerRadius="15"
+                       Padding="20"
+                       HasShadow="True">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Test Sign Up"
+                               FontSize="20"
+                               TextColor="#6200EA"
+                               FontAttributes="Bold"/>
+                        
+                        <Frame BackgroundColor="#F3E5F5"
+                               CornerRadius="10"
+                               Padding="15">
+                            <VerticalStackLayout Spacing="10">
+                                <Entry x:Name="SignUpFirstName" 
+                                       Placeholder="First Name"
+                                       FontSize="16"
+                                       TextColor="#333333"/>
+                                <Entry x:Name="SignUpLastName" 
+                                       Placeholder="Last Name"
+                                       FontSize="16"
+                                       TextColor="#333333"/>
+                                <Entry x:Name="SignUpEmail" 
+                                       Placeholder="Email"
+                                       FontSize="16"
+                                       TextColor="#333333"/>
+                                <Entry x:Name="SignUpPassword" 
+                                       Placeholder="Password"
+                                       IsPassword="True"
+                                       FontSize="16"
+                                       TextColor="#333333"/>
+                                <Entry x:Name="SignUpConfirmPassword" 
+                                       Placeholder="Confirm Password"
+                                       IsPassword="True"
+                                       FontSize="16"
+                                       TextColor="#333333"/>
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <Button Text="Test Sign Up"
+                                BackgroundColor="#6200EA"
+                                TextColor="White"
+                                CornerRadius="25"
+                                HeightRequest="50"
+                                FontAttributes="Bold"
+                                Clicked="OnTestSignUpClicked"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Sign In Section -->
+                <Frame Grid.Row="1"
+                       BackgroundColor="White"
+                       CornerRadius="15"
+                       Padding="20"
+                       HasShadow="True">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Test Sign In"
+                               FontSize="20"
+                               TextColor="#6200EA"
+                               FontAttributes="Bold"/>
+                        
+                        <Frame BackgroundColor="#F3E5F5"
+                               CornerRadius="10"
+                               Padding="15">
+                            <VerticalStackLayout Spacing="10">
+                                <Entry x:Name="SignInEmail" 
+                                       Placeholder="Email"
+                                       FontSize="16"
+                                       TextColor="#333333"/>
+                                <Entry x:Name="SignInPassword" 
+                                       Placeholder="Password"
+                                       IsPassword="True"
+                                       FontSize="16"
+                                       TextColor="#333333"/>
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <Button Text="Test Sign In"
+                                BackgroundColor="#6200EA"
+                                TextColor="White"
+                                CornerRadius="25"
+                                HeightRequest="50"
+                                FontAttributes="Bold"
+                                Clicked="OnTestSignInClicked"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Response Section -->
+                <Frame Grid.Row="2"
+                       BackgroundColor="White"
+                       CornerRadius="15"
+                       Padding="20"
+                       HasShadow="True">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="API Response"
+                               FontSize="20"
+                               TextColor="#6200EA"
+                               FontAttributes="Bold"/>
+                        
+                        <Frame BackgroundColor="#F3E5F5"
+                               CornerRadius="10"
+                               Padding="15">
+                            <Label x:Name="ResponseLabel"
+                                   Text="No response yet"
+                                   FontSize="16"
+                                   TextColor="#333333"/>
+                        </Frame>
+                    </VerticalStackLayout>
+                </Frame>
+            </Grid>
+        </ScrollView>
+    </Grid>
 </ContentPage> 

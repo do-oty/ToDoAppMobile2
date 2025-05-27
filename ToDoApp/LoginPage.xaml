@@ -2,123 +2,56 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ToDoApp.LoginPage"
-             Padding="0">
+             BackgroundColor="#ede3fa"
+             Title="Login">
+    <AbsoluteLayout>
+        <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" RowSpacing="10" Padding="24,0"
+              AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" /> <!-- Logo -->
+                <RowDefinition Height="16" />
+                <RowDefinition Height="Auto" /> <!-- Email -->
+                <RowDefinition Height="8" />
+                <RowDefinition Height="Auto" /> <!-- Password -->
+                <RowDefinition Height="16" />
+                <RowDefinition Height="Auto" /> <!-- Login Button -->
+                <RowDefinition Height="8" />
+                <RowDefinition Height="Auto" /> <!-- Navigation Text -->
+                <RowDefinition Height="12" />
+                <RowDefinition Height="Auto" /> <!-- Divider -->
+                <RowDefinition Height="12" />
+                <RowDefinition Height="Auto" /> <!-- Google Button -->
+            </Grid.RowDefinitions>
 
-    <Grid>
-        <!-- Main Content -->
-        <ScrollView>
-            <Grid>
-                <Grid.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="white" Offset="0.0"/>
-                        <GradientStop Color="#BDA7E1" Offset="1.0"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
+            <Image Grid.Row="0" Source="app_logo" HeightRequest="160" HorizontalOptions="Center" Margin="0,0,0,0" />
 
-                <VerticalStackLayout Padding="30,0" Spacing="25">
-                    <Image 
-                        Source="app_logo" 
-                        HeightRequest="150" 
-                        Aspect="AspectFit" 
-                        Margin="0,120,0,-50" />
-
-                    <VerticalStackLayout Padding="15" Spacing="15">
-                        <Border StrokeThickness="1" Stroke="#5A339E" BackgroundColor="White">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="12"/>
-                            </Border.StrokeShape>
-                            <Entry x:Name="EmailEntry" Placeholder="Email Address" TextColor="#5A339E" BackgroundColor="Transparent"/>
-                        </Border>
-
-                        <Border StrokeThickness="1" Stroke="#5A339E" BackgroundColor="White">
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="12"/>
-                            </Border.StrokeShape>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" TextColor="#5A339E" BackgroundColor="Transparent" Grid.Column="0"/>
-                                <ImageButton x:Name="PasswordToggleButton" 
-                                             Source="eyebrow.svg"
-                                             BackgroundColor="Transparent"
-                                             WidthRequest="24"
-                                             HeightRequest="24"
-                                             Padding="10"
-                                             Grid.Column="1" />
-                            </Grid>
-                        </Border>
-                    </VerticalStackLayout>
-
-                    <Border StrokeThickness="0" BackgroundColor="#5A339E" Margin="15,-30,15,0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="12"/>
-                        </Border.StrokeShape>
-                        <Button x:Name="LoginButton" Text="Log In" BackgroundColor="Transparent" TextColor="White" Clicked="OnLoginClicked"/>
-                    </Border>
-
-                    <HorizontalStackLayout Margin="70,-10,0,0">
-                        <Label Text="Don't have an account? " TextColor="#5A339E"/>
-                        <Label 
-                            Text="Sign Up"
-                            BackgroundColor="Transparent"
-                            TextColor="#759ed4"
-                            TextDecorations="Underline"
-                            FontAttributes="Bold"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center">
-                            <Label.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="OnSignUpTapped"/>
-                            </Label.GestureRecognizers>
-                        </Label>
-                    </HorizontalStackLayout>
-
-                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center"  HorizontalOptions="Center" Margin="15,0,15,0">
-                        <BoxView BackgroundColor="#5A339E" HeightRequest="1" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center"/>
-                        <Label Text="Or" TextColor="#5A339E" VerticalOptions="Center"/>
-                        <BoxView BackgroundColor="#5A339E" HeightRequest="1" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center"/>
-                    </HorizontalStackLayout>
-
-                    <Border StrokeThickness="1" BackgroundColor="#FFFFFF" Stroke="#5A339E" Margin="15,-10,15,0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="12"/>
-                        </Border.StrokeShape>
-                        <Grid Padding="10">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Image Source="google" HeightRequest="24" WidthRequest="24" Grid.Column="0"/>
-                            <Label Text="Log In with Google" TextColor="#5A339E" VerticalOptions="Center" Grid.Column="1" HorizontalOptions="Center"/>
-                        </Grid>
-                    </Border>
-                </VerticalStackLayout>
+            <Frame Grid.Row="2" CornerRadius="8" Padding="0" BackgroundColor="White" HasShadow="False" BorderColor="#B39DDB" HeightRequest="40" HorizontalOptions="Fill" Margin="0,0,0,0">
+                <Entry x:Name="EmailEntry" Placeholder="Email Address" Keyboard="Email" BackgroundColor="Transparent" FontSize="14" TextColor="#5B2E91" Margin="8,0" />
+            </Frame>
+            <Frame Grid.Row="4" CornerRadius="8" Padding="0" BackgroundColor="White" HasShadow="False" BorderColor="#B39DDB" HeightRequest="40" HorizontalOptions="Fill" Margin="0,0,0,0">
+                <Grid>
+                    <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" BackgroundColor="Transparent" FontSize="14" TextColor="#5B2E91" Margin="8,0,28,0" />
+                    <Button x:Name="PasswordToggleButton" Text="👁️" Clicked="OnPasswordToggleClicked" BackgroundColor="Transparent" WidthRequest="24" HeightRequest="24" HorizontalOptions="End" VerticalOptions="Center" />
+                </Grid>
+            </Frame>
+            <Button Grid.Row="6" x:Name="LoginButton" Text="Log In" Clicked="OnLoginClicked" BackgroundColor="#6C3DD6" TextColor="White" FontSize="15" CornerRadius="12" HeightRequest="40" HorizontalOptions="Fill" />
+            <HorizontalStackLayout Grid.Row="8" HorizontalOptions="Center">
+                <Label Text="Don't have an account? " TextColor="#5B2E91" FontSize="12" />
+                <Label Text="Sign Up" TextColor="#759ed4" TextDecorations="Underline" FontAttributes="Bold" FontSize="12">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnSignUpTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+            <Grid Grid.Row="10" ColumnDefinitions="*,Auto,*" HorizontalOptions="Fill" VerticalOptions="Center">
+                <BoxView Grid.Column="0" HeightRequest="1" BackgroundColor="#B39DDB" VerticalOptions="Center" />
+                <Label Grid.Column="1" Text="Or" TextColor="#5B2E91" HorizontalOptions="Center" FontSize="11" />
+                <BoxView Grid.Column="2" HeightRequest="1" BackgroundColor="#B39DDB" VerticalOptions="Center" />
             </Grid>
-        </ScrollView>
-
-        <!-- Loading Indicator Overlay -->
-        <Grid x:Name="LoadingOverlay" 
-              IsVisible="False"
-              BackgroundColor="#80000000"
-              VerticalOptions="FillAndExpand"
-              HorizontalOptions="FillAndExpand">
-
-            <ActivityIndicator x:Name="LoadingIndicator" 
-                              IsRunning="False"
-                              Color="White"
-                              WidthRequest="50"
-                              HeightRequest="50"
-                              HorizontalOptions="Center"
-                              VerticalOptions="Center"/>
-
-            <Label Text="Logging in..." 
-                   TextColor="White"
-                   FontSize="16"
-                   Margin="0,60,0,0"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"/>
+            <Button Grid.Row="12" Text="Log In with Google" BackgroundColor="White" TextColor="#5B2E91" FontSize="14" CornerRadius="12" HeightRequest="40" HorizontalOptions="Fill" BorderColor="#B39DDB" BorderWidth="1" ImageSource="google" />
         </Grid>
-    </Grid>
+        <Grid IsVisible="{Binding IsLoading}" AbsoluteLayout.LayoutBounds="0,0,1,1" AbsoluteLayout.LayoutFlags="All" BackgroundColor="#80000000" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" ZIndex="10">
+            <ActivityIndicator IsRunning="{Binding IsLoading}" Color="White" WidthRequest="60" HeightRequest="60" VerticalOptions="Center" HorizontalOptions="Center" />
+        </Grid>
+    </AbsoluteLayout>
 </ContentPage>

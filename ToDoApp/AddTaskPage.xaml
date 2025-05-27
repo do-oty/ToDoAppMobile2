@@ -1,59 +1,109 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ToDoApp"
              x:Class="ToDoApp.AddTaskPage"
-             BackgroundColor="White"
-             Title="Add Task">
+             Title="Add Task"
+             BackgroundColor="#F8F9FA">
 
-    <!-- Main Content -->
-    <Grid RowDefinitions="Auto,*,Auto">
-        <ScrollView Grid.Row="1" Padding="20">
-            <VerticalStackLayout Spacing="20">
-                <!-- Title Entry -->
-                <Frame BorderColor="#6A1B9A" 
-                       BackgroundColor="#F5F5F5"
-                       Padding="10" 
-                       CornerRadius="10"
-                       HasShadow="False">
-                    <Entry x:Name="TitleEntry"
-                           Placeholder="Title"
-                           BackgroundColor="Transparent"
-                           TextColor="Black"
-                           FontSize="16"
-                           HeightRequest="50"/>
-                </Frame>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-                <!-- Details Editor -->
-                <Frame BorderColor="#6A1B9A" 
-                       BackgroundColor="#F5F5F5"
-                       Padding="10" 
-                       CornerRadius="10"
-                       HasShadow="False">
-                    <Editor x:Name="DetailsEditor"
-                            Placeholder="Add Details here..."
-                            HeightRequest="200"
-                            FontSize="14"
-                            TextColor="Black"
-                            BackgroundColor="Transparent"/>
-                </Frame>
-
-                <!-- Add Button -->
-                <Button x:Name="AddButton"
-                        Text="Add"
-                        BackgroundColor="#6A1B9A"
-                        TextColor="White"
-                        FontSize="16"
-                        CornerRadius="12"
-                        HeightRequest="50"
-                        Clicked="OnAddClicked"/>
-
-                <!-- Loading Indicator -->
-                <ActivityIndicator x:Name="LoadingIndicator"
-                                 IsVisible="False"
-                                 IsRunning="False"
-                                 Color="#6A1B9A"
-                                 HorizontalOptions="Center"/>
+        <!-- Header -->
+        <Frame Grid.Row="0" 
+               BackgroundColor="White"
+               Padding="20,40,20,20"
+               CornerRadius="0"
+               HasShadow="True">
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Add New Task"
+                       FontSize="28"
+                       TextColor="#6200EA"
+                       FontAttributes="Bold"/>
+                <Label Text="Create a new task to manage"
+                       FontSize="16"
+                       TextColor="#666666"/>
             </VerticalStackLayout>
+        </Frame>
+
+        <!-- Form -->
+        <ScrollView Grid.Row="1" Margin="0,-20,0,0">
+            <Grid Padding="20" RowSpacing="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Title -->
+                <Frame Grid.Row="0"
+                       BackgroundColor="White"
+                       CornerRadius="15"
+                       Padding="20"
+                       HasShadow="True">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Task Title"
+                               FontSize="16"
+                               TextColor="#6200EA"
+                               FontAttributes="Bold"/>
+                        <Entry x:Name="TitleEntry"
+                               Placeholder="Enter task title"
+                               FontSize="16"
+                               TextColor="#333333"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Description -->
+                <Frame Grid.Row="1"
+                       BackgroundColor="White"
+                       CornerRadius="15"
+                       Padding="20"
+                       HasShadow="True">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Description"
+                               FontSize="16"
+                               TextColor="#6200EA"
+                               FontAttributes="Bold"/>
+                        <Editor x:Name="DescriptionEditor"
+                                Placeholder="Enter task description"
+                                HeightRequest="100"
+                                FontSize="16"
+                                TextColor="#333333"
+                                AutoSize="TextChanges"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Actions -->
+                <Grid Grid.Row="2" ColumnSpacing="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0"
+                            Text="Cancel"
+                            BackgroundColor="White"
+                            TextColor="#6200EA"
+                            BorderColor="#6200EA"
+                            BorderWidth="1"
+                            CornerRadius="25"
+                            HeightRequest="50"
+                            FontAttributes="Bold"
+                            Clicked="OnCancelClicked"/>
+
+                    <Button Grid.Column="1"
+                            Text="Save Task"
+                            BackgroundColor="#6200EA"
+                            TextColor="White"
+                            CornerRadius="25"
+                            HeightRequest="50"
+                            FontAttributes="Bold"
+                            Clicked="OnAddClicked"/>
+                </Grid>
+            </Grid>
         </ScrollView>
     </Grid>
 </ContentPage>

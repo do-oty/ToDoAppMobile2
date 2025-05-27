@@ -4,19 +4,19 @@ namespace ToDoApp;
 
 public partial class ApiTestPage : ContentPage
 {
-    private readonly ApiService _apiService;
+    private readonly UserService _userService;
 
-    public ApiTestPage()
+    public ApiTestPage(UserService userService)
     {
         InitializeComponent();
-        _apiService = new ApiService();
+        _userService = userService;
     }
 
     private async void OnTestSignUpClicked(object sender, EventArgs e)
     {
         try
         {
-            var response = await _apiService.SignUpAsync(
+            var (success, message) = await _userService.SignUpAsync(
                 firstName: "Test",
                 lastName: "User",
                 email: "testuser@example.com",
@@ -25,7 +25,7 @@ public partial class ApiTestPage : ContentPage
             );
 
             await DisplayAlert("Sign Up Test", 
-                $"Status: {response.status}\nMessage: {response.message}", 
+                $"Success: {success}\nMessage: {message}", 
                 "OK");
         }
         catch (Exception ex)
@@ -40,21 +40,21 @@ public partial class ApiTestPage : ContentPage
     {
         try
         {
-            var response = await _apiService.SignInAsync(
+            var (success, userData, message) = await _userService.SignInAsync(
                 email: "testuser@example.com",
                 password: "123456"
             );
 
-            if (response.status == 200)
+            if (success && userData != null)
             {
                 await DisplayAlert("Sign In Test", 
-                    $"Success!\nUser ID: {response.data.id}\nName: {response.data.first_name} {response.data.last_name}", 
+                    $"Success!\nUser ID: {userData.Id}\nName: {userData.FirstName} {userData.LastName}", 
                     "OK");
             }
             else
             {
                 await DisplayAlert("Sign In Test", 
-                    $"Failed: {response.message}", 
+                    $"Failed: {message}", 
                     "OK");
             }
         }

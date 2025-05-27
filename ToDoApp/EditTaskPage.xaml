@@ -3,56 +3,109 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ToDoApp"
              x:Class="ToDoApp.EditTaskPage"
-             
-             
-             BackgroundColor="White"
-             Title="Edit Task">
+             Title="Edit Task"
+             BackgroundColor="#F8F9FA">
 
-    <Grid RowDefinitions="Auto,*,Auto">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-       
-        <ScrollView Grid.Row="1" Padding="20">
-            <VerticalStackLayout Spacing="20">
-                <Frame BorderColor="#6A1B9A" Padding="10" CornerRadius="10">
-                    <Entry x:Name="TitleEntry"
-                           Placeholder="Title"
-                           FontSize="16"
-                           TextColor="Black"
-                           HeightRequest="50"/>
-                </Frame>
-
-                <Frame BorderColor="#6A1B9A" Padding="10" CornerRadius="10">
-                    <Editor x:Name="DetailsEditor"
-                            Placeholder="Add Details here.."
-                            FontSize="14"
-                            TextColor="Black"
-                            HeightRequest="200"/>
-                </Frame>
-
-                <Button Text="Update"
-                        BackgroundColor="#6A1B9A"
-                        TextColor="White"
-                        CornerRadius="12"
-                        HeightRequest="50"
-                        Clicked="OnUpdateClicked"/>
-
-                <Button Text="Complete"
-                        BackgroundColor="LimeGreen"
-                        TextColor="White"
-                        CornerRadius="12"
-                        HeightRequest="50"
-                        Clicked="OnCompleteClicked"/>
-
-                <Button Text="Delete"
-                        BackgroundColor="Red"
-                        TextColor="White"
-                        CornerRadius="12"
-                        HeightRequest="50"
-                        Clicked="OnDeleteClicked"/>
+        <!-- Header -->
+        <Frame Grid.Row="0" 
+               BackgroundColor="White"
+               Padding="20,40,20,20"
+               CornerRadius="0"
+               HasShadow="True">
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Edit Task"
+                       FontSize="28"
+                       TextColor="#6200EA"
+                       FontAttributes="Bold"/>
+                <Label Text="Update your task details"
+                       FontSize="16"
+                       TextColor="#666666"/>
             </VerticalStackLayout>
-        </ScrollView>
+        </Frame>
 
-        <!-- Navigation Buttons -->
-      
+        <!-- Form -->
+        <ScrollView Grid.Row="1" Margin="0,-20,0,0">
+            <Grid Padding="20" RowSpacing="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Title -->
+                <Frame Grid.Row="0"
+                       BackgroundColor="White"
+                       CornerRadius="15"
+                       Padding="20"
+                       HasShadow="True">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Task Title"
+                               FontSize="16"
+                               TextColor="#6200EA"
+                               FontAttributes="Bold"/>
+                        <Entry x:Name="TitleEntry"
+                               Text="{Binding Title}"
+                               Placeholder="Enter task title"
+                               FontSize="16"
+                               TextColor="#333333"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Description -->
+                <Frame Grid.Row="1"
+                       BackgroundColor="White"
+                       CornerRadius="15"
+                       Padding="20"
+                       HasShadow="True">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Description"
+                               FontSize="16"
+                               TextColor="#6200EA"
+                               FontAttributes="Bold"/>
+                        <Editor x:Name="DescriptionEditor"
+                                Text="{Binding Description}"
+                                Placeholder="Enter task description"
+                                HeightRequest="100"
+                                FontSize="16"
+                                TextColor="#333333"
+                                AutoSize="TextChanges"/>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Actions -->
+                <Grid Grid.Row="2" ColumnSpacing="15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0"
+                            Text="Cancel"
+                            BackgroundColor="White"
+                            TextColor="#6200EA"
+                            BorderColor="#6200EA"
+                            BorderWidth="1"
+                            CornerRadius="25"
+                            HeightRequest="50"
+                            FontAttributes="Bold"
+                            Clicked="OnCancelClicked"/>
+
+                    <Button Grid.Column="1"
+                            Text="Save Changes"
+                            BackgroundColor="#6200EA"
+                            TextColor="White"
+                            CornerRadius="25"
+                            HeightRequest="50"
+                            FontAttributes="Bold"
+                            Clicked="OnSaveClicked"/>
+                </Grid>
+            </Grid>
+        </ScrollView>
     </Grid>
 </ContentPage>
